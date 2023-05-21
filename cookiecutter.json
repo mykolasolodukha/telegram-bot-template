@@ -1,0 +1,17 @@
+{
+  "project_name": null,
+  "project_slug": "{{ cookiecutter.project_name|lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim() }}",
+  "telegram_bot_username": "{{ cookiecutter.project_slug }}",
+  "short_description": "Behold {{ cookiecutter.project_name }}!",
+  "description": "Behold {{ cookiecutter.project_name }}!",
+  "author_name": "Mykola Solodukha",
+  "author_email": "mykola@mykola.fyi",
+  "python_version": [
+    "3.11",
+    "3.10",
+    "3.9"
+  ],
+  "telegram_bot_token": null,
+  "database_url": "postgresql://user:password@localhost:5432/{{ cookiecutter.project_slug }}",
+  "redis_url": "redis://localhost:6379/0"
+}
