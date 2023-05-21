@@ -13,6 +13,8 @@ pydantic = {extras = ["dotenv"], version = "^1.10.5"}
 loguru = "^0.6.0"
 tortoise-orm = {extras = ["asyncpg"], version = "^0.19.3"}
 aerich = "^0.7.1"
+redis = "^4.5.5"
+dj-redis-url = "^0.1.4"
 stringcase = "^1.2.0"
 arrow = "^1.2.3"
 

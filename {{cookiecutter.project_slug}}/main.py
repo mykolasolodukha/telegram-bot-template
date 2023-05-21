@@ -8,9 +8,10 @@ from models import User
 from settings import settings
 from utils import tortoise_orm
 from utils.loguru_logging import logger
+from utils.redis_storage import redis_storage
 
 bot = aiogram.Bot(settings.TELEGRAM_BOT_TOKEN)
-dp = aiogram.Dispatcher(bot)
+dp = aiogram.Dispatcher(bot, storage=redis_storage)
 
 
 # region Filters
@@ -40,7 +41,7 @@ async def start(message: aiogram.types.Message):
     """`/start` command handler."""
     logger.info(f"Received /start command: {message.text=} from {message.from_user.to_python()=}")
     me = await bot.get_me()
-    await message.answer(
+    return await message.answer(
         f"Hi! I'm the {me.full_name} bot. Send me a message and I'll reply to you."
     )
 

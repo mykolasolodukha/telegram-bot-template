@@ -6,6 +6,7 @@ class Settings(BaseSettings):
     """Settings for the Telegram bot."""
 
     TELEGRAM_BOT_TOKEN: str
+
     DATABASE_URL: PostgresDsn
     REDIS_URL: RedisDsn
 
