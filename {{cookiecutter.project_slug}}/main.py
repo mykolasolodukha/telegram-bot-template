@@ -1,6 +1,7 @@
 """The main module of the application."""
 import aiogram
 
+from models import User
 from settings import settings
 from utils import tortoise_orm
 from utils.loguru_logging import logger
@@ -31,6 +32,10 @@ async def on_startup(*_, **__):
 
     logger.debug("Initializing the database connection...")
     await tortoise_orm.init()
+
+    # Get or create the first user, which is the bot itself
+    me_data = me.to_python()
+    await User.get_or_create(id=me_data.pop("id"), defaults=me_data)
 
     logger.info("Startup complete.")
 
