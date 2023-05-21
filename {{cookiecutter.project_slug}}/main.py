@@ -1,6 +1,8 @@
 """The main module of the application."""
 import aiogram
+from aiogram.contrib.middlewares.logging import LoggingMiddleware
 
+from middlewares.message_logging_middleware import MessagesLoggingMiddleware
 from models import User
 from settings import settings
 from utils import tortoise_orm
@@ -8,6 +10,14 @@ from utils.loguru_logging import logger
 
 bot = aiogram.Bot(settings.TELEGRAM_BOT_TOKEN)
 dp = aiogram.Dispatcher(bot)
+
+
+# region Middlewares
+dp.middleware.setup(LoggingMiddleware())
+dp.middleware.setup(MessagesLoggingMiddleware())
+
+
+# endregion
 
 
 # region Handlers
