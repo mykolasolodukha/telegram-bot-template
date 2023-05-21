@@ -2,6 +2,7 @@
 import aiogram
 from aiogram.contrib.middlewares.logging import LoggingMiddleware
 
+from filters.auth import AuthFilter
 from middlewares.message_logging_middleware import MessagesLoggingMiddleware
 from models import User
 from settings import settings
@@ -10,6 +11,19 @@ from utils.loguru_logging import logger
 
 bot = aiogram.Bot(settings.TELEGRAM_BOT_TOKEN)
 dp = aiogram.Dispatcher(bot)
+
+
+# region Filters
+dp.bind_filter(
+    AuthFilter,
+    exclude_event_handlers=[
+        dp.errors_handlers,
+        dp.poll_handlers,
+        dp.poll_answer_handlers,
+    ],
+)
+
+# endregion
 
 
 # region Middlewares
