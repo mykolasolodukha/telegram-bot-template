@@ -2,6 +2,15 @@
 env:
 	poetry install
 
+.PHONY: migrate
+migrate:
+	poetry run aerich upgrade
+
+.PHONY: setup
+setup:
+	make env
+	make migrate
+
 .PHONY: style
 style:
 	poetry run black .

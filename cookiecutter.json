@@ -12,6 +12,9 @@
     "3.9"
   ],
   "telegram_bot_token": null,
-  "database_url": "postgresql://user:password@localhost:5432/{{ cookiecutter.project_slug }}",
-  "redis_url": "redis://localhost:6379/0"
+  "database_url": "postgres://user:password@localhost:5432/{{ cookiecutter.project_slug }}",
+  "redis_url": "redis://localhost:6379/0",
+  "_extensions": [
+    "jinja2_time.TimeExtension"
+  ]
 }
