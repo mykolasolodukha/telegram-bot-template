@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "telegram-bot-template"
-version = "0.1.0"
+version = "0.2.0"
 description = ""
 authors = ["Mykola Solodukha <mykola@mykola.fyi>"]
 readme = "README.md"
