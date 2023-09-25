@@ -31,6 +31,10 @@ dp.bind_filter(
 dp.middleware.setup(LoggingMiddleware())
 dp.middleware.setup(MessagesLoggingMiddleware())
 
+i18n = aiogram.contrib.middlewares.i18n.I18nMiddleware("messages", default="{{ cookiecutter.default_language }}")
+dp.middleware.setup(i18n)
+_ = i18n.gettext
+__ = i18n.lazy_gettext
 
 # endregion
 
@@ -42,7 +46,7 @@ async def start(message: aiogram.types.Message):
     logger.info(f"Received /start command: {message.text=} from {message.from_user.to_python()=}")
     me = await bot.get_me()
     return await message.answer(
-        f"Hi! I'm the {me.full_name} bot. Send me a message and I'll reply to you."
+        _("start.welcome", bot_username=me.username, bot_full_name=me.full_name),
     )
 
 

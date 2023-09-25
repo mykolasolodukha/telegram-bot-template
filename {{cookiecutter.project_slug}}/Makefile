@@ -6,10 +6,13 @@ env:
 migrate:
 	poetry run aerich upgrade
 
-.PHONY: setup
-setup:
-	make env
-	make migrate
+.PHONY: extract-locales
+extract-locales:
+	poetry run pybabel extract --input-dirs . --output ./locales/messages.pot
+
+.PHONY: compile-locales
+compile-locales:
+	poetry run pybabel compile --directory ./locales
 
 .PHONY: style
 style:

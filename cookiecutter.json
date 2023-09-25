@@ -14,6 +14,7 @@
   "telegram_bot_token": null,
   "database_url": "postgres://user:password@localhost:5432/{{ cookiecutter.project_slug }}",
   "redis_url": "redis://localhost:6379/0",
+  "default_language": "en",
   "_extensions": [
     "jinja2_time.TimeExtension"
   ]
