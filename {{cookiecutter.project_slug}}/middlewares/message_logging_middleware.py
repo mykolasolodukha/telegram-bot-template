@@ -56,6 +56,10 @@ class MessagesLoggingMiddleware(BaseMiddleware):
                 if user.date_updated < arrow.Arrow.utcnow().shift(days=-1).datetime:
                     await user.update_from_dict(msg.from_user.to_python()).save()
                     logger.debug(f"User [ID:{user.pk}] updated")
+                # Update the user when they send their contact
+                elif msg.contact and msg.contact.user_id == user.id:
+                    await user.update_from_dict(msg.contact.to_python()).save()
+                    logger.debug(f"User [ID:{user.pk}] updated")
 
         except Exception as e:
             logger.error(f"Exception in {self.__class__.__name__}: {e} ({e.__class__}")
