@@ -14,12 +14,32 @@ extract-locales:
 compile-locales:
 	poetry run pybabel compile --directory ./locales
 
+.PHONY: create-heroku-app
+create-heroku-app:
+	heroku apps:create --region eu {{ cookiecutter.project_slug|replace('_', '-') }}
+
 .PHONY: style
 style:
 	poetry run black .
 	poetry run isort .
 	poetry run pylint .
 	poetry run pydocstyle .
+
+.PHONY: setup
+setup:
+# Echo the command to be executed, with some information about the command itself.
+	echo "Creating virtual environment and installing dependencies..."
+	make env
+	echo "Applying migrations..."
+	make migrate
+	echo "Extracting locales..."
+	make extract-locales
+	echo "Initializing a language: {{ cookiecutter.default_language }}"
+	poetry run pybabel init -i locales/messages.pot -d locales -D messages -l {{ cookiecutter.default_language }}
+	echo "Compiling locales..."
+	make compile-locales
+	echo "Applying style..."
+	make style
 
 .PHONY: run
 run:
