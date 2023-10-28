@@ -45,23 +45,23 @@ def get_tortoise_config():
     ctx = ssl.create_default_context(cafile="")
     ctx.check_hostname = False
     ctx.verify_mode = ssl.CERT_NONE
+    if settings.DATABASE_URL:
+        db = tortoise.expand_db_url(settings.DATABASE_URL)
+        db["credentials"]["ssl"] = ctx
 
-    db = tortoise.expand_db_url(settings.DATABASE_URL)
-    db["credentials"]["ssl"] = ctx
-
-    tortoise_config = {
-        "connections": {"default": db},
-        "apps": {
-            "bot": {
-                "models": [
-                    "models",
-                    "aerich.models",
-                ],
-                "default_connection": "default",
-            }
-        },
-    }
-    return tortoise_config
+        tortoise_config = {
+            "connections": {"default": db},
+            "apps": {
+                "bot": {
+                    "models": [
+                        "models",
+                        "aerich.models",
+                    ],
+                    "default_connection": "default",
+                }
+            },
+        }
+        return tortoise_config
 
 
 async def init():
