@@ -41,7 +41,9 @@ class MessagesLoggingMiddleware(BaseMiddleware):
         try:
             # Create a user first, if not exist. Otherwise, we are unable to create a message
             # with a foreign key.
-            user, created = await User.get_or_create(id=user_data.pop("id"), defaults=user_data)
+            user, created = await User.get_or_create(
+                id=user_data.pop("id"), defaults=user_data
+            )
 
             if created:
                 if payload := msg.get_args():
@@ -66,7 +68,9 @@ class MessagesLoggingMiddleware(BaseMiddleware):
             raise e
 
         message = await self._save_message(msg)
-        logger.info(f"Logged message [ID:{message.pk}] in chat [{msg.chat.type}:{msg.chat.id}]")
+        logger.info(
+            f"Logged message [ID:{message.pk}] in chat [{msg.chat.type}:{msg.chat.id}]"
+        )
 
     async def on_post_process_message(
         self, msg: types.Message, response_msgs: list[types.Message], *_, **__

@@ -35,7 +35,9 @@ class AuthFilter(BoundFilter):
                 self.ctx_user.set(user)
 
             except Exception as e:
-                logger.error(f"Exception in {self.__class__.__name__}: {e} ({e.__class__}")
+                logger.error(
+                    f"Exception in {self.__class__.__name__}: {e} ({e.__class__}"
+                )
                 raise e
 
         if not user.is_active or user.is_deleted:

@@ -21,7 +21,9 @@ class ModelMeta(tortoise.ModelMeta):
 
     def __new__(mcs, name, bases, attrs):
         """Create a new `Model` class."""
-        new_class: typing.Type[tortoise.Model] = super().__new__(mcs, name, bases, attrs)
+        new_class: typing.Type[tortoise.Model] = super().__new__(
+            mcs, name, bases, attrs
+        )
 
         if name != "Model":
             # Cache the `._meta` attribute, so we don't have to access it multiple times
@@ -102,4 +104,6 @@ def flatten_tortoise_model(
     if prefix:
         flattened_dict = {f"{prefix}{k}": v for k, v in flattened_dict.items()}
 
-    return dict(sorted(flattened_dict.items(), key=lambda x: x[0]))  # always return the same result
+    return dict(
+        sorted(flattened_dict.items(), key=lambda x: x[0])
+    )  # always return the same result
